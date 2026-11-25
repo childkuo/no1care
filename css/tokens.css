@@ -1,0 +1,172 @@
+/* ==========================================================================
+   沒人在乎牆軟體 (No1Care Wall) — Design System Tokens
+   Tactile Editorial Studio Aesthetic (Warm Stone, Ink, Terracotta Accent)
+   ========================================================================== */
+
+:root {
+  /* Core Surfaces */
+  --bg-app: #f6f3ee;
+  --bg-surface: #ffffff;
+  --bg-subtle: #ede8e0;
+  --bg-hover: #e5dfd5;
+  --bg-elevated: rgba(255, 255, 255, 0.92);
+
+  /* Typography Ink */
+  --ink-primary: #1c1917;
+  --ink-secondary: #57534e;
+  --ink-muted: #78716c;
+  --ink-inverse: #fafaf9;
+
+  /* Accent: Warm Vermilion / Terracotta */
+  --accent: #d44d30;
+  --accent-hover: #bc3f24;
+  --accent-soft: #faeae5;
+  --accent-ink: #9a2f18;
+
+  /* Semantic Status */
+  --success: #2f7d58;
+  --success-soft: #e6f4ec;
+  --warning: #b4690e;
+  --warning-soft: #fef4e4;
+  --danger: #c4322b;
+  --danger-soft: #fdebe9;
+
+  /* Borders & Hairlines */
+  --border-subtle: rgba(28, 25, 23, 0.08);
+  --border-default: rgba(28, 25, 23, 0.14);
+  --border-strong: rgba(28, 25, 23, 0.24);
+
+  /* Tactile Paper Shadows */
+  --shadow-xs: 0 1px 2px rgba(28, 25, 23, 0.05);
+  --shadow-sm: 0 2px 6px rgba(28, 25, 23, 0.06), 0 1px 2px rgba(28, 25, 23, 0.04);
+  --shadow-md: 0 8px 20px rgba(28, 25, 23, 0.08), 0 2px 6px rgba(28, 25, 23, 0.04);
+  --shadow-lg: 0 18px 40px rgba(28, 25, 23, 0.14), 0 4px 12px rgba(28, 25, 23, 0.06);
+
+  /* Radii */
+  --radius-xs: 6px;
+  --radius-sm: 10px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-pill: 999px;
+
+  /* Typography */
+  --font-sans: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-serif: "Noto Serif TC", Georgia, "Songti TC", serif;
+  --font-mono: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
+  --font-rounded: "Zen Maru Gothic", "Noto Sans TC", "PingFang TC", sans-serif;
+  --font-display: "Space Grotesk", "Noto Sans TC", sans-serif;
+
+  /* Board Active Font (overridden per board) */
+  --board-font: var(--font-sans);
+
+  /* Card Palette (Light) */
+  --card-white: #ffffff;
+  --card-butter: #fff8dc;
+  --card-sage: #ebf5ee;
+  --card-sky: #eaf3fb;
+  --card-blush: #fceee9;
+  --card-sand: #f2ece3;
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --t-fast: 140ms var(--ease-out);
+  --t-med: 240ms var(--ease-out);
+
+  /* Z-index Scale */
+  --z-sticky: 20;
+  --z-topbar: 40;
+  --z-drawer: 60;
+  --z-modal: 80;
+  --z-slideshow: 100;
+  --z-toast: 120;
+}
+
+/* Font Style Overrides for Boards */
+.board-font-sans { --board-font: var(--font-sans); }
+.board-font-serif { --board-font: var(--font-serif); }
+.board-font-mono { --board-font: var(--font-mono); }
+.board-font-rounded { --board-font: var(--font-rounded); }
+
+/* Dark Card Scheme for Boards */
+.board-scheme-dark {
+  --card-white: #242220;
+  --card-butter: #332d1f;
+  --card-sage: #1f2e26;
+  --card-sky: #1e2a36;
+  --card-blush: #352320;
+  --card-sand: #2d2925;
+  --card-ink: #f5f2ed;
+  --card-ink-secondary: #b9b2a8;
+  --card-border: rgba(255, 255, 255, 0.1);
+}
+
+.board-scheme-light {
+  --card-ink: #1c1917;
+  --card-ink-secondary: #57534e;
+  --card-border: rgba(28, 25, 23, 0.09);
+}
+
+/* ==========================================================================
+   Curated Studio Wallpapers (Tactile, Low-fatigue, High Legibility)
+   ========================================================================== */
+
+.wp-linen {
+  background-color: #f4efe6;
+  background-image:
+    radial-gradient(rgba(120, 104, 86, 0.08) 1px, transparent 1px),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.45), rgba(226, 217, 202, 0.35));
+  background-size: 20px 20px, 100% 100%;
+}
+
+.wp-cork {
+  background-color: #d7ba93;
+  background-image:
+    radial-gradient(rgba(116, 78, 38, 0.16) 1.2px, transparent 1.2px),
+    radial-gradient(rgba(255, 241, 218, 0.25) 1px, transparent 1px),
+    linear-gradient(160deg, #dfc39c 0%, #cca97c 100%);
+  background-size: 14px 14px, 23px 23px, 100% 100%;
+  background-position: 0 0, 7px 9px, 0 0;
+}
+
+.wp-sage {
+  background-color: #dde6df;
+  background-image: linear-gradient(155deg, #e7eee8 0%, #cddbc8 100%);
+}
+
+.wp-slate {
+  background-color: #e4e9ee;
+  background-image: linear-gradient(160deg, #eef2f6 0%, #d4dde6 100%);
+}
+
+.wp-terracotta {
+  background-color: #f3e2d8;
+  background-image: linear-gradient(145deg, #f8ece5 0%, #e7c8b8 100%);
+}
+
+.wp-chalkboard {
+  background-color: #26312d;
+  background-image:
+    radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.05), transparent 55%),
+    linear-gradient(150deg, #2b3833 0%, #1d2623 100%);
+  color: #f5f2ed;
+}
+
+.wp-midnight {
+  background-color: #1f242c;
+  background-image:
+    radial-gradient(circle at 80% 15%, rgba(212, 77, 48, 0.1), transparent 45%),
+    linear-gradient(165deg, #252b34 0%, #171b22 100%);
+  color: #f5f2ed;
+}
+
+.wp-kraft {
+  background-color: #e6dac8;
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      rgba(120, 96, 68, 0.03),
+      rgba(120, 96, 68, 0.03) 2px,
+      transparent 2px,
+      transparent 6px
+    );
+}

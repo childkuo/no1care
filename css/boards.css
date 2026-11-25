@@ -1,0 +1,1204 @@
+/* ==========================================================================
+   沒人在乎牆軟體 (No1Care Wall) — Board View, 7 Layouts, Cards & Slideshow
+   ========================================================================== */
+
+.board-shell {
+  min-height: calc(100vh - 61px);
+  display: flex;
+  flex-direction: column;
+  font-family: var(--board-font);
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  transition: background-color var(--t-med);
+}
+
+/* Board Header Bar */
+.board-topbar {
+  position: sticky;
+  top: 61px;
+  z-index: var(--z-sticky);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 14px 24px;
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--border-subtle);
+  color: var(--ink-primary);
+  flex-wrap: wrap;
+}
+
+.wp-chalkboard .board-topbar,
+.wp-midnight .board-topbar {
+  background: rgba(28, 32, 36, 0.84);
+  color: #f5f2ed;
+  border-bottom-color: rgba(255, 255, 255, 0.1);
+}
+
+.wp-chalkboard .board-topbar .btn,
+.wp-midnight .board-topbar .btn {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.16);
+  color: #f5f2ed;
+}
+.wp-chalkboard .board-topbar .btn:hover,
+.wp-midnight .board-topbar .btn:hover {
+  background: rgba(255, 255, 255, 0.18);
+}
+.wp-chalkboard .board-topbar .btn-primary,
+.wp-midnight .board-topbar .btn-primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #ffffff;
+}
+
+.board-meta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+.board-icon-badge {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--ink-primary);
+  display: grid;
+  place-items: center;
+  font-size: 1.45rem;
+  box-shadow: var(--shadow-sm);
+  flex-shrink: 0;
+}
+
+.board-title-wrap {
+  min-width: 0;
+}
+
+.board-title-wrap h1 {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+}
+
+.board-title-wrap p {
+  margin: 2px 0 0;
+  font-size: 0.82rem;
+  opacity: 0.78;
+}
+
+.board-controls {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  flex-wrap: wrap;
+}
+
+/* Sub-toolbar: Filter, Sort & Quick Layout Switch */
+.board-subbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 24px;
+  flex-wrap: wrap;
+}
+
+.layout-switcher {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  padding: 4px;
+  border-radius: var(--radius-sm);
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid var(--border-subtle);
+  box-shadow: var(--shadow-xs);
+  overflow-x: auto;
+  max-width: 100%;
+}
+
+.layout-switch-btn {
+  padding: 5px 10px;
+  border-radius: 7px;
+  border: none;
+  background: transparent;
+  color: var(--ink-secondary);
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all var(--t-fast);
+}
+
+.layout-switch-btn:hover {
+  background: rgba(28, 25, 23, 0.06);
+  color: var(--ink-primary);
+}
+
+.layout-switch-btn.active {
+  background: var(--ink-primary);
+  color: #ffffff;
+}
+
+.board-filters {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.board-filters .input,
+.board-filters .select {
+  width: auto;
+  padding: 6px 10px;
+  font-size: 0.82rem;
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--ink-primary);
+}
+
+/* Moderation Pending Banner */
+.moderation-banner {
+  margin: 0 24px 12px;
+  padding: 11px 16px;
+  border-radius: var(--radius-md);
+  background: var(--warning-soft);
+  border: 1px solid rgba(180, 105, 14, 0.28);
+  color: #7c4706;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  font-size: 0.88rem;
+}
+
+/* Board Workspace Body */
+.board-body {
+  flex: 1;
+  padding: 14px 24px 96px;
+  position: relative;
+}
+
+/* ==========================================================================
+   Floating Action Button (Padlet's Iconic + Button)
+   ========================================================================== */
+
+.fab-add {
+  position: fixed;
+  right: 26px;
+  bottom: 26px;
+  z-index: 35;
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  border: none;
+  background: var(--accent);
+  color: #ffffff;
+  font-size: 1.9rem;
+  line-height: 1;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  box-shadow: 0 10px 26px rgba(212, 77, 48, 0.42);
+  transition: transform var(--t-fast), background var(--t-fast), box-shadow var(--t-fast);
+}
+
+.fab-add:hover {
+  transform: scale(1.07) rotate(90deg);
+  background: var(--accent-hover);
+  box-shadow: 0 14px 32px rgba(212, 77, 48, 0.52);
+}
+
+/* ==========================================================================
+   POST CARD (Shared across all 7 layouts)
+   ========================================================================== */
+
+.post-card {
+  background: var(--card-white);
+  color: var(--card-ink, var(--ink-primary));
+  border: 1px solid var(--card-border, var(--border-subtle));
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  padding: 14px 15px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: box-shadow var(--t-fast), transform var(--t-fast);
+  position: relative;
+  word-break: break-word;
+}
+
+.post-card:hover {
+  box-shadow: var(--shadow-md);
+}
+
+.post-card.color-white { background: var(--card-white); }
+.post-card.color-butter { background: var(--card-butter); }
+.post-card.color-sage { background: var(--card-sage); }
+.post-card.color-sky { background: var(--card-sky); }
+.post-card.color-blush { background: var(--card-blush); }
+.post-card.color-sand { background: var(--card-sand); }
+
+.post-card.is-pinned {
+  box-shadow: 0 0 0 2px var(--accent), var(--shadow-md);
+}
+
+.post-card.is-pending {
+  border: 2px dashed var(--warning);
+  opacity: 0.94;
+}
+
+.post-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.post-author-row {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 0.78rem;
+  color: var(--card-ink-secondary, var(--ink-secondary));
+  min-width: 0;
+}
+
+.post-avatar {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--accent-soft);
+  color: var(--accent-ink);
+  font-size: 0.7rem;
+  font-weight: 700;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+}
+
+.post-author-name {
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.post-time {
+  opacity: 0.72;
+  white-space: nowrap;
+}
+
+.post-menu-btns {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  opacity: 0.65;
+  transition: opacity var(--t-fast);
+  flex-shrink: 0;
+}
+
+.post-card:hover .post-menu-btns {
+  opacity: 1;
+}
+
+.post-action-btn {
+  width: 26px;
+  height: 26px;
+  border-radius: 6px;
+  border: none;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  font-size: 0.82rem;
+}
+.post-action-btn:hover {
+  background: rgba(128, 128, 128, 0.16);
+}
+
+.post-title {
+  margin: 0;
+  font-size: 1.02rem;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.post-body {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  white-space: pre-wrap;
+}
+
+.post-body code {
+  font-family: var(--font-mono);
+  font-size: 0.84em;
+  padding: 1px 5px;
+  border-radius: 4px;
+  background: rgba(128, 128, 128, 0.15);
+}
+
+.post-meta-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.post-tag {
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: var(--radius-pill);
+  background: rgba(128, 128, 128, 0.13);
+}
+
+/* Media Attachments */
+.post-media {
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  border: 1px solid var(--card-border, var(--border-subtle));
+}
+
+.post-media img {
+  display: block;
+  width: 100%;
+  max-height: 320px;
+  object-fit: cover;
+  cursor: zoom-in;
+}
+
+.post-video-wrap {
+  position: relative;
+  padding-top: 56.25%;
+  background: #000;
+}
+
+.post-video-wrap iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.post-audio {
+  width: 100%;
+  height: 38px;
+}
+
+.post-link-card {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  background: rgba(128, 128, 128, 0.08);
+  border: 1px solid var(--card-border, var(--border-subtle));
+  color: inherit;
+  text-decoration: none;
+  transition: background var(--t-fast);
+}
+.post-link-card:hover {
+  background: rgba(128, 128, 128, 0.15);
+  text-decoration: none;
+}
+
+.post-link-domain {
+  font-size: 0.75rem;
+  opacity: 0.72;
+}
+
+.post-link-url {
+  font-size: 0.84rem;
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 220px;
+}
+
+.post-file-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 9px 11px;
+  border-radius: var(--radius-sm);
+  background: rgba(128, 128, 128, 0.09);
+  font-size: 0.82rem;
+}
+
+/* Poll Block inside Post */
+.post-poll {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  padding: 10px;
+  border-radius: var(--radius-sm);
+  background: rgba(128, 128, 128, 0.07);
+}
+
+.poll-question {
+  font-size: 0.84rem;
+  font-weight: 700;
+}
+
+.poll-option {
+  position: relative;
+  border: 1px solid var(--card-border, var(--border-default));
+  border-radius: 8px;
+  padding: 7px 10px;
+  background: rgba(255, 255, 255, 0.55);
+  color: var(--ink-primary);
+  cursor: pointer;
+  overflow: hidden;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.82rem;
+  text-align: left;
+}
+
+.board-scheme-dark .poll-option {
+  background: rgba(255, 255, 255, 0.07);
+  color: #f5f2ed;
+}
+
+.poll-bar {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  background: rgba(212, 77, 48, 0.2);
+  pointer-events: none;
+  transition: width 260ms var(--ease-out);
+}
+
+.poll-option > span {
+  position: relative;
+  z-index: 1;
+}
+
+/* Moderation Approve Bar on Pending Post */
+.post-pending-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  padding: 7px 9px;
+  border-radius: 8px;
+  background: var(--warning-soft);
+  color: #7c4706;
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+/* Reactions & Comment Footer */
+.post-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding-top: 8px;
+  border-top: 1px solid var(--card-border, var(--border-subtle));
+  flex-wrap: wrap;
+}
+
+.reaction-group {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.reaction-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 9px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--card-border, var(--border-default));
+  background: transparent;
+  color: inherit;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--t-fast);
+}
+
+.reaction-btn:hover {
+  background: rgba(128, 128, 128, 0.12);
+}
+
+.reaction-btn.active {
+  background: var(--accent-soft);
+  border-color: var(--accent);
+  color: var(--accent-ink);
+}
+
+.star-picker {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.star-btn {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 0.96rem;
+  padding: 1px;
+  color: #c5beb4;
+  transition: transform var(--t-fast), color var(--t-fast);
+}
+
+.star-btn.filled,
+.star-btn:hover {
+  color: #e09119;
+  transform: scale(1.12);
+}
+
+.grade-input-wrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.8rem;
+}
+
+.grade-input {
+  width: 56px;
+  padding: 2px 6px;
+  border-radius: 6px;
+  border: 1px solid var(--border-default);
+  background: rgba(255, 255, 255, 0.8);
+  color: var(--ink-primary);
+  font-size: 0.8rem;
+  text-align: center;
+}
+
+/* Comments Thread */
+.comments-box {
+  margin-top: 4px;
+  padding-top: 8px;
+  border-top: 1px dashed var(--card-border, var(--border-subtle));
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.comment-item {
+  font-size: 0.82rem;
+  padding: 6px 9px;
+  border-radius: 8px;
+  background: rgba(128, 128, 128, 0.08);
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.comment-author {
+  font-weight: 700;
+  margin-right: 5px;
+}
+
+.comment-form {
+  display: flex;
+  gap: 6px;
+}
+
+.comment-form input {
+  flex: 1;
+  padding: 6px 10px;
+  border-radius: 8px;
+  border: 1px solid var(--card-border, var(--border-default));
+  background: rgba(255, 255, 255, 0.72);
+  color: var(--ink-primary);
+  font-size: 0.82rem;
+}
+
+.board-scheme-dark .comment-form input {
+  background: rgba(255, 255, 255, 0.08);
+  color: #f5f2ed;
+}
+
+/* ==========================================================================
+   LAYOUT 1: WALL (磚牆 Masonry)
+   ========================================================================== */
+
+.layout-wall {
+  column-count: 4;
+  column-gap: 16px;
+}
+
+.layout-wall .post-card {
+  break-inside: avoid;
+  margin-bottom: 16px;
+}
+
+@media (max-width: 1180px) { .layout-wall { column-count: 3; } }
+@media (max-width: 820px) { .layout-wall { column-count: 2; } }
+@media (max-width: 540px) { .layout-wall { column-count: 1; } }
+
+/* ==========================================================================
+   LAYOUT 2: SHELF / COLUMNS (欄位書架分區)
+   ========================================================================== */
+
+.layout-shelf {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  overflow-x: auto;
+  padding-bottom: 18px;
+  min-height: 60vh;
+}
+
+.shelf-column {
+  flex: 0 0 310px;
+  background: rgba(255, 255, 255, 0.62);
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.wp-chalkboard .shelf-column,
+.wp-midnight .shelf-column {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+.shelf-column.drag-over {
+  outline: 2px dashed var(--accent);
+  outline-offset: 2px;
+}
+
+.shelf-col-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.shelf-col-title {
+  margin: 0;
+  font-size: 0.96rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.shelf-count {
+  font-size: 0.74rem;
+  font-weight: 600;
+  padding: 1px 7px;
+  border-radius: var(--radius-pill);
+  background: rgba(128, 128, 128, 0.16);
+}
+
+.shelf-add-col {
+  flex: 0 0 260px;
+  padding: 18px;
+  border-radius: var(--radius-md);
+  border: 2px dashed var(--border-default);
+  background: rgba(255, 255, 255, 0.45);
+  color: inherit;
+  cursor: pointer;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: all var(--t-fast);
+}
+
+.shelf-add-col:hover {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  color: var(--accent-ink);
+}
+
+/* ==========================================================================
+   LAYOUT 3: GRID (整齊格狀)
+   ========================================================================== */
+
+.layout-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+  gap: 16px;
+  align-items: start;
+}
+
+.section-group-block {
+  margin-bottom: 26px;
+}
+
+.section-group-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--border-default);
+}
+
+/* ==========================================================================
+   LAYOUT 4: STREAM (單欄串流)
+   ========================================================================== */
+
+.layout-stream {
+  max-width: 680px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+/* ==========================================================================
+   LAYOUT 5: CANVAS / FREEFORM (自由畫布 + 智慧連線)
+   ========================================================================== */
+
+.layout-canvas-wrap {
+  position: relative;
+  width: 100%;
+  min-height: 74vh;
+  overflow: auto;
+  border-radius: var(--radius-md);
+  border: 1px dashed var(--border-default);
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.canvas-stage {
+  position: relative;
+  min-width: 1400px;
+  min-height: 920px;
+}
+
+.canvas-links-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.canvas-links-svg .link-hit {
+  pointer-events: stroke;
+  cursor: pointer;
+}
+
+.canvas-node {
+  position: absolute;
+  width: 280px;
+  z-index: 2;
+  cursor: grab;
+  user-select: none;
+}
+
+.canvas-node:active {
+  cursor: grabbing;
+  z-index: 10;
+}
+
+.canvas-node.connecting-source .post-card {
+  box-shadow: 0 0 0 3px var(--accent), var(--shadow-lg);
+}
+
+.canvas-hint-bar {
+  position: sticky;
+  left: 14px;
+  top: 12px;
+  z-index: 15;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin: 12px;
+  padding: 7px 14px;
+  border-radius: var(--radius-pill);
+  background: rgba(28, 25, 23, 0.85);
+  color: #fafaf9;
+  font-size: 0.8rem;
+}
+
+/* ==========================================================================
+   LAYOUT 6: TIMELINE (水平時間軸)
+   ========================================================================== */
+
+.layout-timeline {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  overflow-x: auto;
+  padding: 46px 12px 26px;
+  position: relative;
+  min-height: 62vh;
+}
+
+.layout-timeline::before {
+  content: "";
+  position: absolute;
+  top: 24px;
+  left: 12px;
+  right: 12px;
+  height: 3px;
+  background: var(--accent);
+  opacity: 0.55;
+  border-radius: 3px;
+}
+
+.timeline-item {
+  flex: 0 0 300px;
+  position: relative;
+  padding-top: 18px;
+}
+
+.timeline-dot {
+  position: absolute;
+  top: -29px;
+  left: 20px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: 3px solid var(--bg-surface);
+  box-shadow: var(--shadow-sm);
+}
+
+.timeline-date-pill {
+  position: absolute;
+  top: -36px;
+  left: 44px;
+  padding: 2px 10px;
+  border-radius: var(--radius-pill);
+  background: var(--ink-primary);
+  color: #fafaf9;
+  font-size: 0.74rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+/* ==========================================================================
+   LAYOUT 7: MAP (互動世界地圖模式)
+   ========================================================================== */
+
+.layout-map-container {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 16px;
+  min-height: 70vh;
+}
+
+.map-viewport {
+  position: relative;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  border: 1px solid var(--border-default);
+  background: #cfe0ea;
+  min-height: 540px;
+  box-shadow: var(--shadow-sm);
+}
+
+.map-svg {
+  width: 100%;
+  height: 100%;
+  min-height: 540px;
+  display: block;
+  cursor: crosshair;
+}
+
+.map-toolbar {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  right: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  pointer-events: none;
+}
+
+.map-toolbar > * {
+  pointer-events: auto;
+}
+
+.map-chip {
+  padding: 6px 12px;
+  border-radius: var(--radius-pill);
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--ink-primary);
+  font-size: 0.8rem;
+  font-weight: 600;
+  box-shadow: var(--shadow-sm);
+}
+
+.map-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-height: 72vh;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.map-pin-marker {
+  cursor: pointer;
+  transition: transform 140ms ease;
+}
+
+@media (max-width: 960px) {
+  .layout-map-container {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ==========================================================================
+   Composer Media Tabs, Drawing Pad & Audio Recorder
+   ========================================================================== */
+
+.attach-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.attach-tab {
+  padding: 6px 11px;
+  border-radius: var(--radius-xs);
+  border: 1px solid var(--border-default);
+  background: var(--bg-surface);
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.attach-tab.active {
+  background: var(--ink-primary);
+  border-color: var(--ink-primary);
+  color: #ffffff;
+}
+
+.draw-pad-box {
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-sm);
+  padding: 10px;
+  background: #faf8f5;
+}
+
+.draw-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 8px;
+}
+
+.draw-canvas {
+  width: 100%;
+  height: 240px;
+  background: #ffffff;
+  border: 1px solid var(--border-default);
+  border-radius: 8px;
+  cursor: crosshair;
+  touch-action: none;
+  display: block;
+}
+
+.recorder-box {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 14px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-default);
+  background: #faf8f5;
+}
+
+.recorder-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.rec-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--danger);
+  animation: pulseRec 1s infinite;
+}
+
+@keyframes pulseRec {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.25; }
+}
+
+/* ==========================================================================
+   Password Lock Screen
+   ========================================================================== */
+
+.lock-screen {
+  max-width: 400px;
+  margin: 80px auto;
+  padding: 32px 26px;
+  border-radius: var(--radius-lg);
+  background: var(--bg-surface);
+  box-shadow: var(--shadow-lg);
+  text-align: center;
+}
+
+/* ==========================================================================
+   Slideshow Presenter Mode (Padlet Slideshow)
+   ========================================================================== */
+
+.slideshow-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-slideshow);
+  background: #181716;
+  color: #fafaf9;
+  display: flex;
+  flex-direction: column;
+}
+
+.slideshow-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 26px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.slideshow-stage {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 28px 64px;
+  overflow-y: auto;
+}
+
+.slideshow-card {
+  width: 100%;
+  max-width: 860px;
+  background: #252321;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: var(--radius-lg);
+  padding: 34px 40px;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+}
+
+.slideshow-card h2 {
+  margin: 0 0 14px;
+  font-size: clamp(1.5rem, 3vw, 2.2rem);
+}
+
+.slideshow-card p {
+  font-size: 1.15rem;
+  line-height: 1.75;
+  color: #e2ddd6;
+  white-space: pre-wrap;
+}
+
+.slideshow-card img {
+  max-width: 100%;
+  max-height: 46vh;
+  border-radius: var(--radius-md);
+  margin: 14px 0;
+  display: block;
+}
+
+.slideshow-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 26px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* QR Code Box */
+.qr-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 16px;
+  border-radius: var(--radius-md);
+  background: #faf8f5;
+  border: 1px solid var(--border-subtle);
+}
+
+/* Image Lightbox */
+.lightbox-img {
+  max-width: 92vw;
+  max-height: 86vh;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+}
+
+/* ==========================================================================
+   Print / Export to PDF Stylesheet
+   ========================================================================== */
+
+@media print {
+  .app-header,
+  .board-subbar,
+  .board-controls,
+  .fab-add,
+  .post-menu-btns,
+  .comment-form,
+  .moderation-banner {
+    display: none !important;
+  }
+
+  body, .board-shell {
+    background: #ffffff !important;
+    color: #000000 !important;
+  }
+
+  .board-topbar {
+    position: static;
+    background: #ffffff !important;
+    color: #000000 !important;
+    border-bottom: 2px solid #000;
+  }
+
+  .layout-wall {
+    column-count: 2 !important;
+  }
+
+  .post-card {
+    box-shadow: none !important;
+    border: 1px solid #bbb !important;
+    break-inside: avoid;
+  }
+}
+
+@media (max-width: 720px) {
+  .board-topbar,
+  .board-subbar,
+  .board-body {
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+  .slideshow-stage {
+    padding: 18px 16px;
+  }
+  .slideshow-card {
+    padding: 22px;
+  }
+}

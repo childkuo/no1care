@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>沒人在乎牆軟體 (No1Care) — 無限制數位協作佈告牆</title>
+  <meta name="description" content="沒人在乎牆軟體 (No1Care) 是一款依 Padlet 軟體規格打造的數位協作佈告牆，支援無限制牆面數量、7 種佈局（磚牆、書架、格狀、串流、自由畫布連線、時間軸、互動地圖）、手繪、錄音、投票、簡報與多格式匯出。">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%231c1917'/><text x='50%25' y='54%25' dominant-baseline='central' text-anchor='middle' font-size='56'>🧱</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Noto+Sans+TC:wght@400;500;700;800&family=Noto+Serif+TC:wght@500;700&family=Space+Grotesk:wght@600;700&family=Zen+Maru+Gothic:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/boards.css">
+</head>
+<body>
+  <header class="app-header">
+    <a href="#/" class="brand" id="brand-home-btn">
+      <span class="brand-mark" aria-hidden="true">牆</span>
+      <span class="brand-text">
+        <span class="brand-title">沒人在乎牆軟體</span>
+        <span class="brand-sub">No1Care · 無限制 Padlet 規格協作牆</span>
+      </span>
+    </a>
+
+    <div class="header-actions">
+      <div class="sync-badge" id="sync-badge">
+        <span class="sync-dot local"></span>
+        <span>初始化中...</span>
+      </div>
+      <button type="button" class="author-chip" id="author-profile-btn" title="設定你的張貼暱稱">👤 沒人在乎的路人</button>
+      <button type="button" class="btn btn-sm" id="header-import-btn" title="匯入 JSON 牆面或備份">📥 匯入</button>
+      <button type="button" class="btn btn-primary btn-sm" id="header-new-wall-btn">＋ 新牆面</button>
+    </div>
+  </header>
+
+  <div id="app-root"></div>
+  <div id="modal-root"></div>
+  <div id="toast-root" class="toast-stack" aria-live="polite"></div>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>

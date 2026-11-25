@@ -1,0 +1,22 @@
+{
+  "name": "no1care-wall",
+  "version": "1.0.0",
+  "description": "沒人在乎牆軟體 (No1Care) — 完整實作 Padlet 規格、支援無限制牆面的數位協作佈告牆",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "keywords": [
+    "padlet",
+    "collaborative-board",
+    "digital-wall",
+    "bulletin-board",
+    "no1care",
+    "沒人在乎牆"
+  ],
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
